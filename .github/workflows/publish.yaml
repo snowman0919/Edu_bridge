@@ -16,11 +16,11 @@ jobs:
         with:
           flutter-version: "3.16.5"
 
-      - name: Create .env file
-        run: |
-          # echo "" > .env
-        env:
-          # SOT2_URL: ${{ secrets."" }}
+      # - name: Create .env file
+      #   run: |
+      #     echo "" > .env
+      # env:
+      # SOT2_URL: ${{ secrets."" }}
 
       - name: Build Web
         run: flutter build web --release
