@@ -18,15 +18,9 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "SOT2_URL=${{ secrets.SOT2_URL }}" > .env
-          echo "EMAIL_LOGGING_URL=${{ secrets.EMAIL_LOGGING_URL }}" >> .env
-          echo "KAKAO_SHARE_APP_KEY=${{ secrets.KAKAO_SHARE_APP_KEY }}" >> .env
-          echo "KAKAO_SHARE_JS_KEY=${{ secrets.KAKAO_SHARE_JS_KEY }}" >> .env
+          # echo "" > .env
         env:
-          SOT2_URL: ${{ secrets.SOT2_URL }}
-          EMAIL_LOGGING_URL: ${{ secrets.EMAIL_LOGGING_URL }}
-          KAKAO_SHARE_APP_KEY: ${{ secrets.KAKAO_SHARE_APP_KEY }}
-          KAKAO_SHARE_JS_KEY: ${{ secrets.KAKAO_SHARE_JS_KEY }}
+          # SOT2_URL: ${{ secrets."" }}
 
       - name: Build Web
         run: flutter build web --release
