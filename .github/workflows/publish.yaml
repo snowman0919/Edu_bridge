@@ -1,0 +1,38 @@
+name: Publish to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.12.0
+        with:
+          flutter-version: "3.16.5"
+
+      - name: Create .env file
+        run: |
+          echo "SOT2_URL=${{ secrets.SOT2_URL }}" > .env
+          echo "EMAIL_LOGGING_URL=${{ secrets.EMAIL_LOGGING_URL }}" >> .env
+          echo "KAKAO_SHARE_APP_KEY=${{ secrets.KAKAO_SHARE_APP_KEY }}" >> .env
+          echo "KAKAO_SHARE_JS_KEY=${{ secrets.KAKAO_SHARE_JS_KEY }}" >> .env
+        env:
+          SOT2_URL: ${{ secrets.SOT2_URL }}
+          EMAIL_LOGGING_URL: ${{ secrets.EMAIL_LOGGING_URL }}
+          KAKAO_SHARE_APP_KEY: ${{ secrets.KAKAO_SHARE_APP_KEY }}
+          KAKAO_SHARE_JS_KEY: ${{ secrets.KAKAO_SHARE_JS_KEY }}
+
+      - name: Build Web
+        run: flutter build web --release
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3.9.3
+        with:
+          github_token: ${{ secrets.MY_SECRET_KEY_NAME }}
+          publish_dir: ./build/web
